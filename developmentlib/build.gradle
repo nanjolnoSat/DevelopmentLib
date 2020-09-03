@@ -1,0 +1,95 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/kotlin_plugin.gradle"
+apply from: "$rootDir/java_compile_version.gradle"
+
+android {
+    def modulePackage = "com.mishaki.lib"
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildFeatures {
+        dataBinding useDataBinding
+    }
+
+    sourceSets {
+        main {
+            java {
+                //如果有多个文件，也可以使用以下这两种方式
+                //exclude(getDir4PackageName(modulePackage + ".extensions"), "xxx/xxx/xxx.java", "xxx/xxx/xxxx.kt")
+                //exclude getFileDirList(getDir4PackageName(modulePackage),"a.java","b.kt")
+
+                //当不使用kotlin的时候，就不编译kotlin相关的文件
+                if (!useKotlin) {
+                    exclude getDir4PackageName(modulePackage + ".extensions")
+                }
+                //当不使用DataBinding的时候，就不编译DataBinding相关的文件
+                if (!useDataBinding){
+                    //code...
+                }
+                //当不使用Room的时候，就不编译Room相关的文件
+                if (!useRoom){
+                    //code...
+                }
+            }
+            res{
+                //当不使用DataBinding的时候，就不编译DataBinding相关的文件
+                if (!useDataBinding){
+                    //code...
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+static String getDir4PackageName(String packageName) {
+    if (packageName == null) {
+        return ""
+    }
+    String[] strList = packageName.split("\\.")
+    if (strList.length == 0) {
+        return ""
+    }
+    String dir = ""
+    for (String str : strList) {
+        dir += str + "/"
+    }
+    return dir
+}
+
+static String[] getFileDirList(String dir, String... fileNames) {
+    if (fileNames == null || fileNames.length == 0) {
+        return new String[0];
+    }
+    String[] dirList = new String[fileNames.length];
+    for (int i = 0; i < fileNames.length; i++) {
+        dirList[i] = dir + fileNames[i];
+    }
+    return dirList;
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation deps.androidCore
+}

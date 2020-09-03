@@ -1,0 +1,3 @@
+include ':developmentlib'
+include ':app'
+rootProject.name = "DevelopmentLib"
