@@ -1,0 +1,30 @@
+//sdkpi = SDK Public Interface = SDK公共接口
+//并不是所有SDK都会引用，所以导致在调用某些代码的时候，可能会调用没有引入的库的代码
+//导致编译不通过，所以用一套公共接口来提供规范，再由不同module实现这套规范
+//不引入的module空实现，引入的module做具体的时候，这样就可以避免编译通不过这个问题
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation deps.androidCompat
+}

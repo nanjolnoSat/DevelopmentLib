@@ -13,6 +13,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/developmentlib" />
+            <option value="$PROJECT_DIR$/roomLib" />
+            <option value="$PROJECT_DIR$/roomLib_empty" />
+            <option value="$PROJECT_DIR$/sdkpi" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

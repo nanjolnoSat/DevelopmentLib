@@ -11,6 +11,8 @@ buildscript {
         useKotlin = true
         useDataBinding = true
         useRoom = true
+        useZxing = true
+        useMmkv = true
 
         if (useKotlin) {
             kotlin_version = "1.4.0"

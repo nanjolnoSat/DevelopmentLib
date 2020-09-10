@@ -24,7 +24,8 @@ android {
     sourceSets {
         main {
             java {
-                //如果有多个文件，也可以使用以下这两种方式
+                //可以使用以下几种方式忽略文件或目录
+                //exclude getDir4PackageName(modulePackage + ".extensions")
                 //exclude(getDir4PackageName(modulePackage + ".extensions"), "xxx/xxx/xxx.java", "xxx/xxx/xxxx.kt")
                 //exclude getFileDirList(getDir4PackageName(modulePackage),"a.java","b.kt")
 
@@ -33,17 +34,13 @@ android {
                     exclude getDir4PackageName(modulePackage + ".extensions")
                 }
                 //当不使用DataBinding的时候，就不编译DataBinding相关的文件
-                if (!useDataBinding){
-                    //code...
-                }
-                //当不使用Room的时候，就不编译Room相关的文件
-                if (!useRoom){
+                if (!useDataBinding) {
                     //code...
                 }
             }
-            res{
+            res {
                 //当不使用DataBinding的时候，就不编译DataBinding相关的文件
-                if (!useDataBinding){
+                if (!useDataBinding) {
                     //code...
                 }
             }
@@ -51,9 +48,17 @@ android {
     }
 
     buildTypes {
+        def USE_ROOM = "USE_ROOM"
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "boolean", USE_ROOM, String.valueOf(useRoom)
+        }
+
+        debug {
+            buildConfigField "boolean", USE_ROOM, String.valueOf(useRoom)
         }
     }
 }
@@ -92,4 +97,13 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation deps.androidCore
+
+
+    //自己的module
+    api project(path: ':sdkpi')
+    if (useRoom) {
+        api project(path: ':roomLib')
+    } else {
+        api project(path: ':roomLib_empty')
+    }
 }

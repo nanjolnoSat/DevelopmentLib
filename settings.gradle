@@ -1,3 +1,6 @@
+include ':roomLib_empty'
+include ':roomLib'
+include ':sdkpi'
 include ':developmentlib'
 include ':app'
 rootProject.name = "DevelopmentLib"
