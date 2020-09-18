@@ -15,6 +15,9 @@ buildscript {
         //ViewPager2
         androidViewPager2Version            = "1.0.0"
 
+        //kotlin coroutine
+        kotlinCoroutineVersion              = "1.3.7"
+
         //其他第三方库
         //EventBus
         eventBusVersion                     = "3.2.0"
@@ -35,6 +38,13 @@ buildscript {
         mmkvVersion                         = "1.2.2"
 
         deps = [
+                //kotlin
+                kotlinCore                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinCoreVersion",
+                //kotlinCoroutineCore
+                kotlinCoroutineCore         : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion",
+                //kotlinCoroutineCoreAndroid
+                kotlinCoroutineCoreAndroid  : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion",
+
                 //谷歌自带的库
                 androidCore                 : "androidx.core:core:$androidCoreVersion",
                 androidCoreKtx              : "androidx.core:core-ktx:$androidCoreVersion",

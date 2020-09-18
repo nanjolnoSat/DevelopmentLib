@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
  * Created by 杜壁奇<br/>
  * on 2020/09/08 21:49<br/>
  * DATABASE：不知道使用什么就用AppDatabase，这个是默认的Database类型<br/>
+ *
  * @see com.mishaki.lib.roomlib.AppDatabase
  */
 public abstract class BaseApplication<DATABASE extends RoomDatabase> extends Application {
@@ -22,17 +23,23 @@ public abstract class BaseApplication<DATABASE extends RoomDatabase> extends App
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initRoom();
+    }
+
+    private void initRoom() {
         if (BuildConfig.USE_ROOM) {
             appDatabase = initDatabase();
         }
     }
 
-    //为增强扩展性，不要求返回的类必须是AppDatabase的子类
+    /**
+     * 默认返回AppDatabase
+     */
     protected DATABASE initDatabase() {
         return (DATABASE) new RoomInitializer().init(this);
     }
 
-    public DATABASE getDatabase() {
+    public final DATABASE getDatabase() {
         return appDatabase;
     }
 }

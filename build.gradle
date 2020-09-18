@@ -9,13 +9,14 @@ buildscript {
 
         //各种use
         useKotlin = true
+        useKotlinCoroutine = true
         useDataBinding = true
         useRoom = true
         useZxing = true
         useMmkv = true
 
         if (useKotlin) {
-            kotlin_version = "1.4.0"
+            kotlinCoreVersion = "1.4.0"
         }
     }
 
@@ -26,8 +27,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.1"
         if (useKotlin) {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-            classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinCoreVersion"
+            classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlinCoreVersion"
         }
 
         // NOTE: Do not place your application dependencies here; they belong

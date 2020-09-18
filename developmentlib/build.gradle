@@ -98,9 +98,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation deps.androidCore
 
-
+    //kotlin协程
+    if (useKotlin && useKotlinCoroutine){
+        api deps.kotlinCoroutineCore
+        api deps.kotlinCoroutineCoreAndroid
+    }
     //自己的module
     api project(path: ':sdkpi')
+    //是否使用Room
     if (useRoom) {
         api project(path: ':roomLib')
     } else {
